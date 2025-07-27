@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  news: [],
+  newsByCategory: {},
   newsDetail: null,
   loading: false,
 };
@@ -10,22 +10,26 @@ const newsSlice = createSlice({
   name: "news",
   initialState,
   reducers: {
-    setNews: (state, action) => {
-      state.news = action.payload;
+    setNewsByCategory: (state, action) => {
+      const { category, data } = action.payload;
+      state.newsByCategory[category] = data;
     },
+
     setNewsDetail: (state, action) => {
       state.newsDetail = action.payload;
     },
+
     startLoading: (state) => {
       state.loading = true;
     },
+
     endLoading: (state) => {
       state.loading = false;
     },
   },
 });
 
-export const { setNews, setNewsDetail, startLoading, endLoading } =
+export const { setNewsByCategory, setNewsDetail, startLoading, endLoading } =
   newsSlice.actions;
 
 export default newsSlice.reducer;
