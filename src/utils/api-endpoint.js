@@ -1,6 +1,5 @@
 //  API Endpoint
 export const API_ENDPOINT = {
-  // Auth
   ANTARA: "/antara",
   CNBC: "/cnbc",
   CNN: "/cnn",
