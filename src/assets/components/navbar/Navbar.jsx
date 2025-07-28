@@ -44,7 +44,7 @@ export const Navbar = () => {
     if (isScrolled) {
       return `text-sm lg:text-base font-${isActive ? "bold" : "semibold"} text-white`;
     } else {
-      return `text-sm lg:text-base font-${isActive ? "bold" : "semibold"} text-[#828282] hover:text-[#0090FF]`;
+      return `text-sm lg:text-base font-${isActive ? "bold text-[#0090FF]" : "semibold text-[#828282] hover:text-[#0090FF]"} `;
     }
   };
   return (
@@ -53,7 +53,7 @@ export const Navbar = () => {
         className={`${isScrolled ? "bg-[#0090FF]" : "bg-white"} fixed z-10 flex w-full justify-center border-b px-4 py-4 sm:px-6 md:px-8`}
       >
         <div className="flex w-full max-w-7xl items-center justify-between">
-          <div className="flex items-center gap-2">
+          <Link to={"/"} className="flex items-center gap-2">
             <img
               src={Logo}
               alt="Logo"
@@ -65,7 +65,7 @@ export const Navbar = () => {
             >
               Berita Kini
             </h5>
-          </div>
+          </Link>
           <RxHamburgerMenu
             size={35}
             className={`${isScrolled ? "text-white hover:bg-slate-200 hover:bg-opacity-50" : "text-[#828282] hover:bg-slate-100"} cursor-pointer rounded-md p-2 md:hidden`}
@@ -90,7 +90,7 @@ export const Navbar = () => {
             className={`${isScrolled ? "bg-[#0090FF]" : "bg-white"} fixed bottom-0 right-0 top-0 flex h-screen w-full max-w-xs flex-col`}
           >
             <div className="flex w-full items-center justify-between border-b px-4 py-4 sm:px-6 md:px-8">
-              <div className="flex items-center gap-2">
+              <Link to={"/"} className="flex items-center gap-2">
                 <img
                   src={Logo}
                   alt="Logo"
@@ -102,7 +102,7 @@ export const Navbar = () => {
                 >
                   Berita Kini
                 </h5>
-              </div>
+              </Link>
               <IoMdClose
                 size={40}
                 className={`${isScrolled ? "text-white hover:bg-slate-200 hover:bg-opacity-50" : "text-[#828282] hover:bg-slate-100"} cursor-pointer rounded-md p-2 md:hidden`}

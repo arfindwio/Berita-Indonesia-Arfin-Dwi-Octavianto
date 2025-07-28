@@ -2,29 +2,26 @@ import React from "react";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
 
 const getPaginationRange = (currentPage, totalPages) => {
-  const delta = 1; // halaman di kiri & kanan currentPage yang ditampilkan
+  const delta = 1;
   const range = [];
   const left = Math.max(2, currentPage - delta);
   const right = Math.min(totalPages - 1, currentPage + delta);
 
-  range.push(1); // selalu tampil halaman 1
+  range.push(1);
 
   if (left > 2) {
-    range.push("..."); // ellipsis setelah 1
+    range.push("...");
   }
 
   for (let i = left; i <= right; i++) {
-    if (totalPages - 1 !== i) {
-      range.push(i);
-    }
+    range.push(i);
   }
 
-  if (right < totalPages - 1) {
+  if (right < totalPages - 2) {
     range.push("...");
   }
 
   if (totalPages > 1) {
-    range.push(totalPages - 1);
     range.push(totalPages);
   }
 
