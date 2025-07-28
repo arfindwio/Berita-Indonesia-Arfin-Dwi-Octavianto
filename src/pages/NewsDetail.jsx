@@ -165,7 +165,7 @@ export const NewsDetail = () => {
             </p>
             <IoIosArrowForward size={15} className="text-[#333333]" />
             <p className="text-base font-normal text-[#333333] sm:text-lg">
-              {newsDetailData.newsDetail?.category}
+              {newsDetailData?.newsDetail?.category}
             </p>
             <IoIosArrowForward size={15} className="text-[#333333]" />
 
@@ -285,7 +285,7 @@ export const NewsDetail = () => {
                     Berita Terkait
                   </h3>
                   <Link
-                    to={"/"}
+                    to={`/${(newsDetailData.newsDetail?.category).toLowerCase()}`}
                     className="h-fit rounded-lg border border-[#0090FF] bg-[#E2F2FF] px-3 py-1 text-center text-sm font-medium text-[#0090FF] sm:px-5 sm:py-[14px] sm:text-base"
                   >
                     Lihat Semua
