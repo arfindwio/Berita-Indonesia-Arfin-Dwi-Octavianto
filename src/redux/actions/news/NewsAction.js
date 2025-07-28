@@ -68,3 +68,28 @@ export const getCnnNewsAction = (category) => async (dispatch) => {
     dispatch(endLoading());
   }
 };
+
+export const getNewsDetailAction =
+  (categoryBreadcrumb, newsDetail, category) => async (dispatch) => {
+    try {
+      dispatch(startLoading());
+
+      const result = await reduxGetCnnNews(category);
+
+      dispatch(
+        setNewsDetail({
+          newsDetail: {
+            ...newsDetail,
+            category: categoryBreadcrumb,
+          },
+          relatedNews: result.data.data.posts,
+        }),
+      );
+
+      return true;
+    } catch (err) {
+      handleRequestError(err);
+    } finally {
+      dispatch(endLoading());
+    }
+  };

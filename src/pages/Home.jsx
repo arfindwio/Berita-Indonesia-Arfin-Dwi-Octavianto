@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 // Components
@@ -8,6 +7,7 @@ import { HeadlineCard } from "../assets/components/card/HeadlineCard";
 import { PopularNewCard } from "../assets/components/card/PopularNewsCard";
 import { RecommendationCard } from "../assets/components/card/RecommendationCard";
 import { NewsPagination } from "../assets/components/pagination/NewsPagination";
+import { Footer } from "../assets/components/footer/Footer";
 
 // Redux Action
 import { getCnnNewsAction } from "../redux/actions/news/NewsAction";
@@ -15,38 +15,31 @@ import { getCnnNewsAction } from "../redux/actions/news/NewsAction";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosSearch } from "react-icons/io";
-import { IoIosArrowRoundBack } from "react-icons/io";
-import { IoIosArrowRoundForward } from "react-icons/io";
-import { FaYoutube } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa";
-import { FaFacebook } from "react-icons/fa";
-import { FaTelegramPlane } from "react-icons/fa";
 
 // Images
 import Image4 from "../assets/img/Image4.svg";
-import Logo from "../assets/img/Berita-Kini_Logo.svg";
 
 export const Home = () => {
   const dispatch = useDispatch();
 
   const sportsNewsData = useSelector(
-    (state) => state.news.newsByCategory.olahraga,
+    (state) => state.news?.newsByCategory?.olahraga,
   );
   const nationalNewsData = useSelector(
-    (state) => state.news.newsByCategory.nasional,
+    (state) => state.news?.newsByCategory?.nasional,
   );
   const latestlNewsData = useSelector(
-    (state) => state.news.newsByCategory.terbaru,
+    (state) => state.news?.newsByCategory?.terbaru,
   );
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(latestlNewsData.length / 8);
+  const totalPages = Math.ceil(latestlNewsData?.length / 8);
   const startIndex = (currentPage - 1) * 8;
-  const currentData = latestlNewsData.slice(startIndex, startIndex + 8);
+  const currentData = latestlNewsData?.slice(startIndex, startIndex + 8);
 
-  const maxIndex = Math.min(sportsNewsData.length, 10) - 1;
+  const maxIndex = Math.min(sportsNewsData?.length, 10) - 1;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,12 +69,9 @@ export const Home = () => {
           style={{ fontFamily: "Inter, sans-serif" }}
         >
           <div className="flex w-full max-w-7xl flex-col gap-6 px-4 sm:px-6 md:gap-10 md:px-8 xl:px-0">
-            <HeadlineCard
-              title={sportsNewsData[currentIndex].title}
-              description={sportsNewsData[currentIndex].description}
-              date={sportsNewsData[currentIndex].pubDate}
-              thumbnail={sportsNewsData[currentIndex].thumbnail}
-            />
+            {sportsNewsData?.length > 0 && (
+              <HeadlineCard data={sportsNewsData[currentIndex]} />
+            )}
             <div className="flex w-full items-center justify-center gap-4 text-[#828282] md:gap-6">
               <IoIosArrowBack
                 size={18}
@@ -114,14 +104,8 @@ export const Home = () => {
               Berita Populer
             </h3>
             <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {nationalNewsData.slice(0, 3).map((item, index) => (
-                <PopularNewCard
-                  key={index}
-                  thumbnail={item.thumbnail}
-                  title={item.title}
-                  date={item.pubDate}
-                  index={index}
-                />
+              {nationalNewsData?.slice(0, 3).map((item, index) => (
+                <PopularNewCard key={index} data={item} index={index} />
               ))}
             </div>
           </div>
@@ -149,16 +133,11 @@ export const Home = () => {
               </div>
             </div>
             <div
-              className="sm:gap:10 grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 md:gap-14"
+              className="sm:gap:10 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 lg:gap-14"
               style={{ fontFamily: "Inter, sans-serif" }}
             >
-              {currentData.slice(0, 8).map((item, index) => (
-                <RecommendationCard
-                  key={index}
-                  thumbnail={item.thumbnail}
-                  title={item.title}
-                  date={item.pubDate}
-                />
+              {currentData?.slice(0, 8).map((item, index) => (
+                <RecommendationCard key={index} data={item} />
               ))}
             </div>
             <NewsPagination
@@ -166,7 +145,7 @@ export const Home = () => {
               totalPages={totalPages}
               setCurrentPage={setCurrentPage}
               startIndex={startIndex}
-              totalItems={latestlNewsData.length}
+              totalItems={latestlNewsData?.length}
               itemsPerPage={8}
             />
           </div>
@@ -193,147 +172,9 @@ export const Home = () => {
             />
           </div>
         </section>
-
-        <footer className="flex w-full justify-center bg-[#2C3C4D] py-16">
-          <div className="grid w-full max-w-7xl grid-cols-1 gap-8 px-4 sm:grid-cols-2 sm:px-6 md:px-8 lg:grid-cols-6 lg:gap-4 xl:px-0">
-            <div className="col-span-1 flex w-full flex-col gap-4 sm:col-span-2 lg:gap-10">
-              <div className="flex flex-col gap-3 lg:gap-5">
-                <div className="flex items-center gap-3">
-                  <img
-                    src={Logo}
-                    alt="Logo"
-                    loading="lazy"
-                    className="h-[68px] w-[68px] object-contain brightness-0 invert"
-                  />
-                  <h5 className="text-2xl font-semibold text-white sm:text-3xl">
-                    Berita Kini
-                  </h5>
-                </div>
-                <p
-                  className="text-sm font-normal text-[#F2F2F2] sm:text-lg"
-                  style={{ fontFamily: "Nunito Sans, sans-serif" }}
-                >
-                  © 2023 Berita Kini. All Rights Reserved.
-                </p>
-              </div>
-              <div className="flex flex-col gap-3 lg:gap-5">
-                <p className="text-lg font-semibold text-white sm:text-[22px]">
-                  Ikuti Kami
-                </p>
-                <ul className="flex items-center gap-2 lg:gap-4">
-                  <Link to={"/"}>
-                    <FaYoutube
-                      size={20}
-                      className="h-10 w-10 rounded-xl bg-[#E0E0E0] p-2"
-                    />
-                  </Link>
-                  <Link to={"/"}>
-                    <FaInstagram
-                      size={20}
-                      className="h-10 w-10 rounded-xl bg-[#E0E0E0] p-2"
-                    />
-                  </Link>
-                  <Link to={"/"}>
-                    <FaFacebook
-                      size={20}
-                      className="h-10 w-10 rounded-xl bg-[#E0E0E0] p-2"
-                    />
-                  </Link>
-                </ul>
-              </div>
-            </div>
-            <div className="col-span-1 flex flex-col gap-3 lg:gap-6">
-              <h5 className="text-lg font-semibold text-white sm:text-[22px]">
-                Telusuri
-              </h5>
-              <ul className="flex flex-col gap-2 lg:gap-3">
-                <Link
-                  to={"/"}
-                  className="text-sm font-medium text-[#F2F2F2] hover:text-[#0090FF] sm:text-base"
-                >
-                  Beranda
-                </Link>
-                <Link
-                  to={"/"}
-                  className="text-sm font-medium text-[#F2F2F2] hover:text-[#0090FF] sm:text-base"
-                >
-                  Kesehatan
-                </Link>
-                <Link
-                  to={"/"}
-                  className="text-sm font-medium text-[#F2F2F2] hover:text-[#0090FF] sm:text-base"
-                >
-                  Otomotif
-                </Link>
-                <Link
-                  to={"/"}
-                  className="text-sm font-medium text-[#F2F2F2] hover:text-[#0090FF] sm:text-base"
-                >
-                  Politik
-                </Link>
-                <Link
-                  to={"/"}
-                  className="text-sm font-medium text-[#F2F2F2] hover:text-[#0090FF] sm:text-base"
-                >
-                  Olahraga
-                </Link>
-                <Link
-                  to={"/"}
-                  className="text-sm font-medium text-[#F2F2F2] hover:text-[#0090FF] sm:text-base"
-                >
-                  Nasional
-                </Link>
-                <Link
-                  to={"/"}
-                  className="text-sm font-medium text-[#F2F2F2] hover:text-[#0090FF] sm:text-base"
-                >
-                  Internasional
-                </Link>
-              </ul>
-            </div>
-            <div className="col-span-1 flex flex-col gap-3 lg:gap-6">
-              <h5 className="textlg font-semibold text-white sm:text-[22px]">
-                Bantuan
-              </h5>
-              <ul className="flex flex-col gap-2 lg:gap-3">
-                <Link
-                  to={"/"}
-                  className="text-sm font-medium text-[#F2F2F2] hover:text-[#0090FF] sm:text-base"
-                >
-                  Kontak Kami
-                </Link>
-                <Link
-                  to={"/"}
-                  className="text-sm font-medium text-[#F2F2F2] hover:text-[#0090FF] sm:text-base"
-                >
-                  Laporan Pembajakan
-                </Link>
-                <Link
-                  to={"/"}
-                  className="text-sm font-medium text-[#F2F2F2] hover:text-[#0090FF] sm:text-base"
-                >
-                  Kebijakan
-                </Link>
-              </ul>
-            </div>
-            <div className="col-span-1 flex flex-col gap-3 sm:col-span-2 lg:gap-6">
-              <h5 className="text-lg font-semibold text-white sm:text-[22px]">
-                Berlangganan Berita Terbaru
-              </h5>
-              <div className="relative w-full max-w-sm">
-                <input
-                  type="email"
-                  placeholder="Masukan email"
-                  className="w-full rounded-lg border p-3 pr-16 focus:outline-none sm:p-5"
-                />
-                <button className="absolute bottom-2 right-3 flex h-8 w-8 items-center justify-center rounded-md bg-[#0090FF] p-2 sm:h-12 sm:w-12 sm:p-3">
-                  <FaTelegramPlane size={20} className="text-white" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </footer>
       </div>
+
+      <Footer />
     </>
   );
 };

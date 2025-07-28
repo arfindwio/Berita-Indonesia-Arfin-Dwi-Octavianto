@@ -16,7 +16,10 @@ const newsSlice = createSlice({
     },
 
     setNewsDetail: (state, action) => {
-      state.newsDetail = action.payload;
+      state.newsDetail = {
+        newsDetail: action.payload.newsDetail,
+        relatedNews: action.payload.relatedNews,
+      };
     },
 
     startLoading: (state) => {
