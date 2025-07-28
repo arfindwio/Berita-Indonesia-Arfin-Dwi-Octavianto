@@ -68,7 +68,7 @@ export const Navbar = () => {
           </div>
           <RxHamburgerMenu
             size={35}
-            className="cursor-pointer rounded-md p-2 text-[#828282] hover:bg-slate-100 md:hidden"
+            className={`${isScrolled ? "text-white hover:bg-slate-200 hover:bg-opacity-50" : "text-[#828282] hover:bg-slate-100"} cursor-pointer rounded-md p-2 md:hidden`}
             onClick={() => setIsSidebarOpen(true)}
           />
 
@@ -86,20 +86,26 @@ export const Navbar = () => {
       </header>
       {isSidebarOpen && (
         <div className="fixed right-0 z-10 h-screen w-screen bg-black bg-opacity-50 md:hidden">
-          <div className="fixed bottom-0 right-0 top-0 flex h-screen w-full max-w-xs flex-col bg-white">
+          <div
+            className={`${isScrolled ? "bg-[#0090FF]" : "bg-white"} fixed bottom-0 right-0 top-0 flex h-screen w-full max-w-xs flex-col`}
+          >
             <div className="flex w-full items-center justify-between border-b px-4 py-4 sm:px-6 md:px-8">
               <div className="flex items-center gap-2">
                 <img
                   src={Logo}
                   alt="Logo"
                   loading="lazy"
-                  className="h-11 w-11 object-contain"
+                  className={`${isScrolled ? "brightness-0 invert" : ""} h-11 w-11 object-contain`}
                 />
-                <h5 className="text-xl font-semibold">Berita Kini</h5>
+                <h5
+                  className={`${isScrolled ? "text-white" : "text-black"} text-lg font-semibold lg:text-xl`}
+                >
+                  Berita Kini
+                </h5>
               </div>
               <IoMdClose
                 size={40}
-                className="cursor-pointer rounded-md p-2 text-[#828282] hover:bg-slate-100"
+                className={`${isScrolled ? "text-white hover:bg-slate-200 hover:bg-opacity-50" : "text-[#828282] hover:bg-slate-100"} cursor-pointer rounded-md p-2 md:hidden`}
                 onClick={() => setIsSidebarOpen(false)}
               />
             </div>
@@ -108,48 +114,11 @@ export const Navbar = () => {
               className="flex flex-col gap-4 px-4 py-4 sm:px-6 md:px-8"
               style={{ fontFamily: "Inter, sans-serif" }}
             >
-              <Link
-                to={"/"}
-                className="text-base font-semibold text-[#828282] hover:text-[#0090FF]"
-              >
-                Beranda
-              </Link>
-              <Link
-                to={"/terbaru"}
-                className="text-base font-semibold text-[#828282] hover:text-[#0090FF]"
-              >
-                Terbaru
-              </Link>
-              <Link
-                to={"/hiburan"}
-                className="text-base font-semibold text-[#828282] hover:text-[#0090FF]"
-              >
-                Hiburan
-              </Link>
-              <Link
-                to={"/gaya-hidup"}
-                className="text-base font-semibold text-[#828282] hover:text-[#0090FF]"
-              >
-                Gaya Hidup
-              </Link>
-              <Link
-                to={"/olahraga"}
-                className="text-base font-semibold text-[#828282] hover:text-[#0090FF]"
-              >
-                Olahraga
-              </Link>
-              <Link
-                to={"/nasional"}
-                className="text-base font-semibold text-[#828282] hover:text-[#0090FF]"
-              >
-                Nasional
-              </Link>
-              <Link
-                to={"/internasional"}
-                className="text-base font-semibold text-[#828282] hover:text-[#0090FF]"
-              >
-                Internasional
-              </Link>
+              {navItems.map(({ label, path }) => (
+                <Link key={path} to={path} className={getLinkClass(path)}>
+                  {label}
+                </Link>
+              ))}
             </ul>
           </div>
         </div>
