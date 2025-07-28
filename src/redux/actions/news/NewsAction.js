@@ -1,28 +1,95 @@
 // Services
-import { reduxGetNews } from "../../../services/news/NewsServices";
+import {
+  reduxGetAntaraNews,
+  reduxGetCnbcNews,
+  reduxGetCnnNews,
+  reduxGetJpnnNews,
+  reduxGetKumparanNews,
+  reduxGetMerdekaNews,
+  reduxGetOkezoneNews,
+  reduxGetRepublikaNews,
+  reduxGetSindonewsNews,
+  reduxGetSuaraNews,
+  reduxGetTempoNews,
+} from "../../../services/news/NewsServices";
 
 // Reducer
 import {
-  setNews,
+  setNewsByCategory,
   setNewsDetail,
   startLoading,
   endLoading,
-} from "../../reducer/news/AuthSlice";
+} from "../../reducer/news/NewsSlice";
 
 // Error Handler
 import { handleRequestError } from "../../../utils/errorHandler";
 
-export const getNewsAction = (category) => async (dispatch) => {
+export const getAntaraNewsAction = (category) => async (dispatch) => {
   try {
     dispatch(startLoading());
 
-    const result = await reduxGetNews(category);
+    const result = await reduxGetAntaraNews(category);
 
-    // dispatch(setNews(result.data.data));
-    // return result.data.data;
+    dispatch(setNewsByCategory({ category, data: result.data.data.posts }));
+    return true;
   } catch (err) {
     handleRequestError(err);
   } finally {
     dispatch(endLoading());
   }
 };
+
+export const getCnbcNewsAction = (category) => async (dispatch) => {
+  try {
+    dispatch(startLoading());
+
+    const result = await reduxGetCnbcNews(category);
+
+    dispatch(setNewsByCategory({ category, data: result.data.data.posts }));
+    return true;
+  } catch (err) {
+    handleRequestError(err);
+  } finally {
+    dispatch(endLoading());
+  }
+};
+
+export const getCnnNewsAction = (category) => async (dispatch) => {
+  try {
+    dispatch(startLoading());
+
+    const result = await reduxGetCnnNews(category);
+
+    dispatch(setNewsByCategory({ category, data: result.data.data.posts }));
+    return true;
+  } catch (err) {
+    handleRequestError(err);
+  } finally {
+    dispatch(endLoading());
+  }
+};
+
+export const getNewsDetailAction =
+  (categoryBreadcrumb, newsDetail, category) => async (dispatch) => {
+    try {
+      dispatch(startLoading());
+
+      const result = await reduxGetCnnNews(category);
+
+      dispatch(
+        setNewsDetail({
+          newsDetail: {
+            ...newsDetail,
+            category: categoryBreadcrumb,
+          },
+          relatedNews: result.data.data.posts,
+        }),
+      );
+
+      return true;
+    } catch (err) {
+      handleRequestError(err);
+    } finally {
+      dispatch(endLoading());
+    }
+  };

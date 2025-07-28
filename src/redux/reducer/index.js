@@ -1,5 +1,5 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import NewsSlice from "./news/AuthSlice";
+import NewsSlice from "./news/NewsSlice";
 
 export default combineReducers({
   // News
