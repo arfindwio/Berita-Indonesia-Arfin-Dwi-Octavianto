@@ -7,6 +7,7 @@ import { Navbar } from "../assets/components/navbar/Navbar";
 import { HeadlineCard } from "../assets/components/card/HeadlineCard";
 import { PopularNewCard } from "../assets/components/card/PopularNewsCard";
 import { RecommendationCard } from "../assets/components/card/RecommendationCard";
+import { NewsPagination } from "../assets/components/pagination/NewsPagination";
 
 // Redux Action
 import { getCnnNewsAction } from "../redux/actions/news/NewsAction";
@@ -39,6 +40,11 @@ export const Home = () => {
   );
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(latestlNewsData.length / 8);
+  const startIndex = (currentPage - 1) * 8;
+  const currentData = latestlNewsData.slice(startIndex, startIndex + 8);
 
   const maxIndex = Math.min(sportsNewsData.length, 10) - 1;
 
@@ -146,7 +152,7 @@ export const Home = () => {
               className="sm:gap:10 grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 md:gap-14"
               style={{ fontFamily: "Inter, sans-serif" }}
             >
-              {latestlNewsData.slice(0, 8).map((item, index) => (
+              {currentData.slice(0, 8).map((item, index) => (
                 <RecommendationCard
                   key={index}
                   thumbnail={item.thumbnail}
@@ -155,39 +161,14 @@ export const Home = () => {
                 />
               ))}
             </div>
-            <div
-              className="flex w-full flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-0"
-              style={{ fontFamily: "Inter, sans-serif" }}
-            >
-              <p className="text-center text-xs font-normal text-[#333333] sm:text-sm md:text-start md:text-base">
-                Showing 1 to 10 of 97 results
-              </p>
-              <div className="flex w-full flex-wrap items-center justify-center gap-0 md:w-fit md:justify-end md:gap-4">
-                <button className="flex scale-75 items-center gap-2 text-[#526071] sm:scale-[0.85] md:scale-100">
-                  <IoIosArrowRoundBack size={20} />
-                  Previous
-                </button>
-                <button className="scale-75 rounded-lg bg-[#0090FF] px-4 py-2 text-base font-medium text-white sm:scale-[0.85] md:scale-100">
-                  1
-                </button>
-                <button className="scale-75 rounded-lg px-4 py-2 text-base font-medium text-[#526071] hover:bg-[#526071] hover:bg-opacity-20 hover:text-white sm:scale-[0.85] md:scale-100">
-                  2
-                </button>
-                <p className="scale-75 rounded-lg px-4 py-2 text-base font-medium text-[#526071] sm:scale-[0.85] md:scale-100">
-                  ...
-                </p>
-                <button className="scale-75 rounded-lg px-4 py-2 text-base font-medium text-[#526071] hover:bg-[#526071] hover:bg-opacity-20 hover:text-white sm:scale-[0.85] md:scale-100">
-                  8
-                </button>
-                <button className="scale-75 rounded-lg px-4 py-2 text-base font-medium text-[#526071] hover:bg-[#526071] hover:bg-opacity-20 hover:text-white sm:scale-[0.85] md:scale-100">
-                  9
-                </button>
-                <button className="flex scale-75 items-center gap-2 text-[#526071] sm:scale-[0.85] md:scale-100">
-                  Next
-                  <IoIosArrowRoundForward size={20} />
-                </button>
-              </div>
-            </div>
+            <NewsPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              setCurrentPage={setCurrentPage}
+              startIndex={startIndex}
+              totalItems={latestlNewsData.length}
+              itemsPerPage={8}
+            />
           </div>
         </section>
 

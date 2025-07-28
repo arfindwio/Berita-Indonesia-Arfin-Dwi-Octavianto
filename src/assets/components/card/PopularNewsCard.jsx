@@ -11,7 +11,7 @@ export const PopularNewCard = ({ thumbnail, title, date, index }) => {
   });
 
   return (
-    <div className="relative grid grid-cols-3 gap-2 md:gap-4">
+    <div className="relative grid h-fit grid-cols-3 gap-2 md:gap-4">
       <img
         src={thumbnail}
         alt={title}
