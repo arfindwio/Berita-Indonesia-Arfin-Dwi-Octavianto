@@ -284,12 +284,14 @@ export const NewsDetail = () => {
                   >
                     Berita Terkait
                   </h3>
-                  <Link
-                    to={`/${(newsDetailData.newsDetail?.category).toLowerCase()}`}
-                    className="h-fit rounded-lg border border-[#0090FF] bg-[#E2F2FF] px-3 py-1 text-center text-sm font-medium text-[#0090FF] sm:px-5 sm:py-[14px] sm:text-base"
-                  >
-                    Lihat Semua
-                  </Link>
+                  {newsDetailData?.newsDetail?.category && (
+                    <Link
+                      to={`/${(newsDetailData?.newsDetail?.category).toLowerCase()}`}
+                      className="h-fit rounded-lg border border-[#0090FF] bg-[#E2F2FF] px-3 py-1 text-center text-sm font-medium text-[#0090FF] sm:px-5 sm:py-[14px] sm:text-base"
+                    >
+                      Lihat Semua
+                    </Link>
+                  )}
                 </div>
                 <div
                   className="sm:gap:10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-14"
