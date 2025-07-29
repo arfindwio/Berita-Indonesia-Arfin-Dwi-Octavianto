@@ -133,7 +133,7 @@ export const Home = () => {
               </div>
             </div>
             <div
-              className="sm:gap:10 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 lg:gap-14"
+              className="sm:gap:10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-14"
               style={{ fontFamily: "Inter, sans-serif" }}
             >
               {currentData?.slice(0, 8).map((item, index) => (
@@ -152,7 +152,7 @@ export const Home = () => {
         </section>
 
         <section
-          className="flex w-full justify-center px-4 py-20 sm:px-6 md:px-8 md:py-32 xl:px-0"
+          className="flex w-full justify-center px-4 py-12 sm:px-6 sm:py-20 md:px-8 md:py-32 xl:px-0"
           style={{ fontFamily: "Montserrat, sans-serif" }}
         >
           <div className="flex w-full max-w-7xl flex-col justify-between rounded-3xl bg-[#00CAA3] px-5 py-3 sm:flex-row sm:px-10 sm:py-5 md:px-16 md:py-8 lg:px-24 lg:py-10">
