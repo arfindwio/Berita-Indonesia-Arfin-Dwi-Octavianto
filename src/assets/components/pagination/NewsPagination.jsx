@@ -54,7 +54,7 @@ export const NewsPagination = ({
         results
       </p>
 
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex flex-wrap items-center justify-center gap-0 sm:gap-2">
         <button
           onClick={handlePrev}
           disabled={currentPage === 1}
